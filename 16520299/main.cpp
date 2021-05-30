@@ -2,12 +2,11 @@
 
 class Vehicle {
     protected:
-        int number_of_wheels;
+        int number_of_wheels, absis, ordinat, number_of_seats, passanger;
         double fuelCapacity = 0;
         bool isEngineOn = false;
         double speed = 0;
-        int absis, ordinat;
-    
+
     public:
         Vehicle() { 
             std::cout<< "Vehicle has been constructed" << std::endl; 
@@ -65,6 +64,9 @@ class Vehicle {
 class Motorcycle : public Vehicle {
     private:
         bool hasHelmStorage;
+        int number_of_seats = 2;
+        int passanger = 1;
+
     public:
         Motorcycle(int x, int y, bool helmStorage): Vehicle(x,y) {
             hasHelmStorage = helmStorage;
@@ -99,7 +101,7 @@ class Motorcycle : public Vehicle {
             int moveX = x, moveY = y;
             if (x < 0) { moveX = -x; }
             if (y < 0) { moveY = -y; }
-            double lossFuel = 0.5*(speed*moveX + speed*moveY); 
+            double lossFuel = 0.5*(speed*moveX + speed*moveY)*passanger; 
             
             if (lossFuel > fuelCapacity){
                 std::cout << "Not enough fuel" << std::endl;
@@ -116,7 +118,9 @@ class Motorcycle : public Vehicle {
 
         void printStats(){
             std::cout << "Motorcycle Statistics:" << std::endl;
-            std::cout << "1. LossFuel : 0.5*(speed*x + speed*y)" << std::endl;
+            std::cout << "1. LossFuel : 0.5*(speed*x + speed*y)*passanger" << std::endl;
+            std::cout << "2. Number of seats : 2" << std::endl;
+            std::cout << "3. Maximum fuel capacity : 500" << std::endl;
         }
 
         void printCommand(){
@@ -126,7 +130,8 @@ class Motorcycle : public Vehicle {
             std::cout << "3. Move" << std::endl;
             std::cout << "4. Refuel" << std::endl;
             std::cout << "5. Add external helm storage" << std::endl;
-            std::cout << "6. Display information" << std::endl;
+            std::cout << "6. Add passanger" << std::endl;
+            std::cout << "7. Display information" << std::endl;
             std::cout << "0. Stop riding\n" << std::endl;
             std::cout << "Input yout choice: ";
         }
@@ -138,6 +143,21 @@ class Motorcycle : public Vehicle {
             std::cout << "3. Position: (" << absis << "," << ordinat << ")" <<std::endl;
             std::cout << "4. Fuel: " << fuelCapacity <<std::endl;
             std::cout << "5. Helm storage: " << (hasHelmStorage ? "yes" : "no") <<std::endl;
+            std::cout << "6. Passanger: " << passanger << std::endl;
+        }
+
+        void addPassanger() {
+            if (passanger < number_of_seats){
+                if (hasHelmStorage) {
+                    passanger += 1;
+                    std::cout << "Passanger has been added" << std::endl;
+                } else {
+                    std::cout << "Please add helm storage before add passanger" << std::endl;
+                }
+            } else {
+                std::cout << "Seats are full" << std::endl;
+            }
+            
         }
 };
 
@@ -198,6 +218,10 @@ int main(){
                 break;
 
             case 6:
+                bike.addPassanger();
+                break;
+
+            case 7:
                 bike.printInformation();
                 break;
 
