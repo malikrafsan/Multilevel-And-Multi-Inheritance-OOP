@@ -3,8 +3,8 @@
 class Vehicle {
     protected:
         int number_of_wheels;
-        double status_of_the_fuel, fuelCapacity;
-        bool status_of_engine, isEngineOn = false;
+        double fuelCapacity = 0;
+        bool isEngineOn = false;
         double speed = 0;
         int absis, ordinat;
     
@@ -52,12 +52,14 @@ class Vehicle {
             absis += x;
             ordinat += y;
             fuelCapacity -= lossFuel;
+            std::cout << "You have moved to (" << absis << "," << ordinat << ")" << std::endl;
         }
 
         virtual void move(int x, int y) = 0;
         virtual void refuel() = 0;
         virtual void printStats() = 0;
         virtual void printCommand() = 0;
+        virtual void printInformation() = 0;
 };
 
 class Motorcycle : public Vehicle {
@@ -73,6 +75,7 @@ class Motorcycle : public Vehicle {
                 std::cout << "without helm storage" << std::endl;
             }
         }
+
         void addExternalHelmStorage(){
             if (hasHelmStorage){
                 std::cout << "Already has helm storage" << std::endl;
@@ -107,7 +110,7 @@ class Motorcycle : public Vehicle {
         }
 
         void refuel() {
-            fuelCapacity = 5000;
+            fuelCapacity = 500;
             std::cout << "Your vehicle has been refueled" << std::endl;
         }
 
@@ -122,8 +125,19 @@ class Motorcycle : public Vehicle {
             std::cout << "2. Set speed" << std::endl;
             std::cout << "3. Move" << std::endl;
             std::cout << "4. Refuel" << std::endl;
-            std::cout << "5. Add external helm storage\n" << std::endl;
+            std::cout << "5. Add external helm storage" << std::endl;
+            std::cout << "6. Display information" << std::endl;
+            std::cout << "0. Stop riding\n" << std::endl;
             std::cout << "Input yout choice: ";
+        }
+
+        void printInformation() {
+            std::cout << "\n> Information <" << std::endl;
+            std::cout << "1. Engine is " << (isEngineOn ? "on" : "off") <<std::endl;
+            std::cout << "2. Speed: " << speed <<std::endl;
+            std::cout << "3. Position: (" << absis << "," << ordinat << ")" <<std::endl;
+            std::cout << "4. Fuel: " << fuelCapacity <<std::endl;
+            std::cout << "5. Helm storage: " << (hasHelmStorage ? "yes" : "no") <<std::endl;
         }
 };
 
@@ -148,9 +162,16 @@ int main(){
     if (choice == 1){
         Motorcycle bike = Motorcycle(absis,ordinat,false);
         std::cout << std::endl;
+
         do {
             bike.printCommand();
             std::cin >> choice;
+            
+            if (choice == 0) {
+                std::cout << "\nExit the program" << std::endl; 
+                break;
+            }
+
             switch (choice){
             case 1:
                 bike.turnOnEngine();
@@ -176,15 +197,18 @@ int main(){
                 bike.addExternalHelmStorage();
                 break;
 
+            case 6:
+                bike.printInformation();
+                break;
+
             default:
                 wrongInput();
                 break;
             }
             std::cout <<"\n===================\n" << std::endl;
         } while (true);
-
-    } else {
-
+    } else{
+        // Has not implemented
     }
 }
 
