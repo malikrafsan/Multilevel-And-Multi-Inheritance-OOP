@@ -2,7 +2,7 @@
 
 class Vehicle {
     protected:
-        int number_of_wheels, absis, ordinat, number_of_seats, passanger;
+        int number_of_wheels, absis, ordinat, number_of_seats, passanger, maxSeats, usedSeats;
         double fuelCapacity = 0;
         bool isEngineOn = false;
         double speed = 0;
@@ -14,7 +14,7 @@ class Vehicle {
         }
 
         ~Vehicle() { 
-            std::cout<< "Your vehicle has been deleted" << std::endl;
+            std::cout<< "Your vehicle has been destructed" << std::endl;
         }
 
         double getVelocity(){
@@ -71,6 +71,15 @@ class Vehicle {
             }
         }
 
+        void addPassanger() {
+            if (passanger < maxSeats){
+                passanger += 1;
+                std::cout << "Passanger has been added" << std::endl;
+            } else {
+                std::cout << "Seats are full" << std::endl;
+            }
+        }
+
         virtual double lossFuel(int inputX, int inputY, double inputSpeed) = 0;
         virtual void refuel() = 0;
         virtual void printStats() = 0;
@@ -80,9 +89,7 @@ class Vehicle {
 
 class Motorcycle : public Vehicle {
     private:
-        bool hasHelmStorage;
-        int number_of_seats = 2;
-        int passanger = 1;
+        bool hasHelmStorage = false;
 
     public:
         Motorcycle(int x, int y, bool helmStorage): Vehicle(x,y) {
@@ -93,6 +100,9 @@ class Motorcycle : public Vehicle {
             } else {
                 std::cout << "without helm storage" << std::endl;
             }
+            maxSeats = 2;
+            passanger = 1;
+            usedSeats = 1;
         }
 
         void addExternalHelmStorage(){
@@ -114,14 +124,14 @@ class Motorcycle : public Vehicle {
         }
 
         void printStats(){
-            std::cout << "Motorcycle Statistics:" << std::endl;
-            std::cout << "1. LossFuel : 0.5*(speed*x + speed*y)*passanger" << std::endl;
-            std::cout << "2. Number of seats : 2" << std::endl;
+            std::cout << "> Motorcycle Statistics <" << std::endl;
+            std::cout << "1. LossFuel : 0.5 * (speed*moveX + speed*moveY) * passanger" << std::endl;
+            std::cout << "2. Maximum number of seats : 2" << std::endl;
             std::cout << "3. Maximum fuel capacity : 500" << std::endl;
         }
 
         void printCommand(){
-            std::cout << "Motorcycle command: " << std::endl;
+            std::cout << "> Motorcycle command <" << std::endl;
             std::cout << "1. Turn on engine" << std::endl;
             std::cout << "2. Set speed" << std::endl;
             std::cout << "3. Move" << std::endl;
@@ -143,8 +153,9 @@ class Motorcycle : public Vehicle {
             std::cout << "6. Passanger: " << passanger << std::endl;
         }
 
+        // Override addPassanger procedure
         void addPassanger() {
-            if (passanger < number_of_seats){
+            if (passanger < maxSeats){
                 if (hasHelmStorage) {
                     passanger += 1;
                     std::cout << "Passanger has been added" << std::endl;
@@ -154,28 +165,59 @@ class Motorcycle : public Vehicle {
             } else {
                 std::cout << "Seats are full" << std::endl;
             }
-            
         }
 };
 
 class Car: public Vehicle {
-    private:
-        int number_of_seats;
-        int passanger = 1;
-
     public:
         Car(int x, int y): Vehicle(x,y) {
-            std::cout << "How many number of seats of your car: "; std::cin >> number_of_seats;
-            while (number_of_seats < 1) {
+            std::cout << "How many number of seats of your car: "; std::cin >> maxSeats;
+            while (maxSeats < 1) {
                 std::cout << "Your input is invalid, number of seats must be > 1" << std::endl;
-                std::cout << "How many number of seats of your car: "; std::cin >> number_of_seats;
+                std::cout << "How many number of seats of your car: "; std::cin >> maxSeats;
             }
+            std::cout<< "Car in (" << absis << "," << ordinat << ") has been constructed with " << maxSeats << " number of seats" << std::endl;
+            number_of_wheels = 4;
+            passanger = 1;
+            usedSeats = 1;
         }
-        void move(int x, int y) {};
-        void refuel() {};
-        void printStats() {};
-        void printCommand() {};
-        void printInformation() {};
+
+        double lossFuel(int inputX, int inputY, double inputSpeed) { 
+            return (inputSpeed * (1.5) * (inputX + inputY) * (0.75 * passanger)); 
+        }
+        
+        void refuel() {
+            fuelCapacity = 2000;
+            std::cout << "Your vehicle has been refueled" << std::endl;
+        }
+
+        void printStats() {
+            std::cout << "> Car Statistics <" << std::endl;
+            std::cout << "1. LossFuel : speed * (1.5) * (moveX + moveY) * (0.75 * passanger)" << std::endl;
+            std::cout << "2. Maximum number of seats : " << maxSeats << std::endl;
+            std::cout << "3. Maximum fuel capacity : 2000" << std::endl;
+        }
+
+        void printCommand() {
+            std::cout << "> Car command <" << std::endl;
+            std::cout << "1. Turn on engine" << std::endl;
+            std::cout << "2. Set speed" << std::endl;
+            std::cout << "3. Move" << std::endl;
+            std::cout << "4. Refuel" << std::endl;
+            std::cout << "5. Add passanger" << std::endl;
+            std::cout << "6. Display information" << std::endl;
+            std::cout << "0. Stop driving\n" << std::endl;
+            std::cout << "Input yout choice: ";
+        }
+
+        void printInformation() {
+            std::cout << "\n> Information <" << std::endl;
+            std::cout << "1. Engine is " << (isEngineOn ? "on" : "off") <<std::endl;
+            std::cout << "2. Speed: " << speed <<std::endl;
+            std::cout << "3. Position: (" << absis << "," << ordinat << ")" <<std::endl;
+            std::cout << "4. Fuel: " << fuelCapacity <<std::endl;
+            std::cout << "6. Passanger: " << passanger << std::endl;
+        }
 };
 
 void wrongInput(){
@@ -193,11 +235,19 @@ int main(){
     int choice;
     std::cout << "\nChoose your vehicle" << std::endl;
     std::cout << "1. Motorcycle" << std::endl;
+    std::cout << "2. Car" << std::endl;
     std::cout << "\nInput your choice: "; std::cin >> choice;
 
     // Use if-else if because cannot initialize class inside switch
     if (choice == 1){
-        Motorcycle bike = Motorcycle(absis,ordinat,false);
+        char YN; bool hasHelmStorage;
+        std::cout << "Do you want your motorcycle to have helm storage? (Y/N) "; std::cin >> YN;
+        while (YN != 'Y' and YN != 'N'){
+            wrongInput();
+            std::cout << "Do you want your motorcycle to have helm storage? (Y/N) "; std::cin >> YN;
+        }
+
+        Motorcycle bike = Motorcycle(absis,ordinat,(YN == 'Y' ? true : false));
         std::cout << std::endl;
 
         do {
@@ -210,54 +260,94 @@ int main(){
             }
 
             switch (choice){
-            case 1:
-                bike.turnOnEngine();
-                break;
+                case 1:
+                    bike.turnOnEngine();
+                    break;
 
-            case 2:
-                std::cout << "New speed: "; std::cin >> speed;
-                bike.setSpeed(speed);
-                break;
+                case 2:
+                    std::cout << "New speed: "; std::cin >> speed;
+                    bike.setSpeed(speed);
+                    break;
 
-            case 3:
-                std::cout << "Please input how much you wanna go" << std::endl;
-                std::cout << "X direction: "; std::cin >> absis;
-                std::cout << "Y direction: "; std::cin >> ordinat;
-                bike.move(absis,ordinat);
-                break;
+                case 3:
+                    std::cout << "Please input how much you wanna go" << std::endl;
+                    std::cout << "X direction: "; std::cin >> absis;
+                    std::cout << "Y direction: "; std::cin >> ordinat;
+                    bike.move(absis,ordinat);
+                    break;
 
-            case 4:
-                bike.refuel();
-                break;
+                case 4:
+                    bike.refuel();
+                    break;
 
-            case 5:
-                bike.addExternalHelmStorage();
-                break;
+                case 5:
+                    bike.addExternalHelmStorage();
+                    break;
 
-            case 6:
-                bike.addPassanger();
-                break;
+                case 6:
+                    bike.addPassanger();
+                    break;
 
-            case 7:
-                bike.printInformation();
-                break;
+                case 7:
+                    bike.printInformation();
+                    break;
 
-            default:
-                wrongInput();
-                break;
+                default:
+                    wrongInput();
+                    break;
             }
             std::cout <<"\n===================\n" << std::endl;
         } while (true);
 
     } else if (choice == 2) {
-        //Car myCar = Car(absis,ordinat);
+        Car myCar = Car(absis,ordinat);
+        std::cout << std::endl;
+
+        do {
+            myCar.printCommand();
+            std::cin >> choice;
+            
+            if (choice == 0) {
+                std::cout << "\nExit the program" << std::endl; 
+                break;
+            }
+
+            switch (choice){
+                case 1:
+                    myCar.turnOnEngine();
+                    break;
+
+                case 2:
+                    std::cout << "New speed: "; std::cin >> speed;
+                    myCar.setSpeed(speed);
+                    break;
+
+                case 3:
+                    std::cout << "Please input how much you wanna go" << std::endl;
+                    std::cout << "X direction: "; std::cin >> absis;
+                    std::cout << "Y direction: "; std::cin >> ordinat;
+                    myCar.move(absis,ordinat);
+                    break;
+
+                case 4:
+                    myCar.refuel();
+                    break;
+
+                case 5:
+                    myCar.addPassanger();
+                    break;
+
+                case 6:
+                    myCar.printInformation();
+                    break;
+
+                default:
+                    wrongInput();
+                    break;
+            }
+            std::cout <<"\n===================\n" << std::endl;
+        } while (true);
+    } else {
+        wrongInput();
     }
 }
-
-// std::cout << "" << std::endl;
-/*
-    Motorcycle myBike = Motorcycle(5, 0, false);
-    
-    myBike.setVelocity(20);
-    std::cout << "Velocity: " << myBike.getVelocity() << std::endl;
-*/
