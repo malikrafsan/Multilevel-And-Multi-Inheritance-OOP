@@ -19,14 +19,7 @@ int main(){
 
     // Use if-else if because cannot initialize class inside switch
     if (choice == 1){
-        char YN; bool hasHelmStorage;
-        std::cout << "Do you want your motorcycle to have helm storage? (Y/N) "; std::cin >> YN;
-        while (YN != 'Y' and YN != 'N'){
-            wrongInput();
-            std::cout << "Do you want your motorcycle to have helm storage? (Y/N) "; std::cin >> YN;
-        }
-
-        Motorcycle bike = Motorcycle(absis,ordinat,(YN == 'Y' ? true : false));
+        Motorcycle bike = Motorcycle(absis,ordinat);
         std::cout << std::endl;
 
         do {

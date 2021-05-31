@@ -97,8 +97,15 @@ LandVehicle::LandVehicle(int x,int y): Vehicle(x,y) {}
 
 // =========================================================================================
 
-Motorcycle::Motorcycle(int x, int y, bool helmStorage): LandVehicle(x,y) {
-    hasHelmStorage = helmStorage;
+Motorcycle::Motorcycle(int x, int y): LandVehicle(x,y) {
+    char YN;
+    std::cout << "Do you want your motorcycle to have helm storage? (Y/N) "; std::cin >> YN;
+    while (YN != 'Y' and YN != 'N'){
+        wrongInput();
+        std::cout << "Do you want your motorcycle to have helm storage? (Y/N) "; std::cin >> YN;
+    }
+
+    hasHelmStorage = (YN == 'Y' ? true : false);
     std::cout<< "Your motorcycle in (" << absis << "," << ordinat << ") has been magically created :D";
     if (hasHelmStorage) {
         std::cout << "with helm storage" <<std::endl;

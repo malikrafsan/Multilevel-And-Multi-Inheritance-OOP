@@ -35,7 +35,7 @@ class Motorcycle: public LandVehicle {
         bool hasHelmStorage = false;
 
     public:
-        Motorcycle(int x, int y, bool helmStorage);
+        Motorcycle(int x, int y);
         void addExternalHelmStorage();
         double lossFuel(int inputX, int inputY, double inputSpeed);
         void refuel();
