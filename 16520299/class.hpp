@@ -2,7 +2,7 @@
 
 class Vehicle {
     protected:
-        int number_of_wheels, absis, ordinat, number_of_seats, passanger, maxSeats, usedSeats;
+        int absis, ordinat, number_of_seats, passanger, maxSeats, usedSeats;
         double fuelCapacity = 0;
         bool isEngineOn = false;
         double speed = 0;
@@ -22,7 +22,14 @@ class Vehicle {
         virtual void printStats() = 0;
 };
 
-class Motorcycle : public Vehicle {
+class LandVehicle: public Vehicle {
+    protected:
+        int number_of_wheels;
+    public:
+        LandVehicle(int x, int y);
+};
+
+class Motorcycle : public LandVehicle {
     private:
         bool hasHelmStorage = false;
 
@@ -37,7 +44,7 @@ class Motorcycle : public Vehicle {
         void addPassanger();
 };
 
-class Car: public Vehicle {
+class Car: public LandVehicle {
     public:
         Car(int x, int y);
         double lossFuel(int inputX, int inputY, double inputSpeed);

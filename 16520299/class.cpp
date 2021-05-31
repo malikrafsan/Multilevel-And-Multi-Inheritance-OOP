@@ -91,7 +91,9 @@ void Vehicle::printInformation() {
     std::cout << "5. Passanger: " << passanger << std::endl;
 }
 
-Motorcycle::Motorcycle(int x, int y, bool helmStorage): Vehicle(x,y) {
+LandVehicle::LandVehicle(int x,int y): Vehicle(x,y) {};
+
+Motorcycle::Motorcycle(int x, int y, bool helmStorage): LandVehicle(x,y) {
     hasHelmStorage = helmStorage;
     std::cout<< "Motorcycle in (" << absis << "," << ordinat << ") has been constructed ";
     if (hasHelmStorage) {
@@ -150,7 +152,7 @@ void Motorcycle::addPassanger() {
     }
 }
 
-Car::Car(int x, int y): Vehicle(x,y) {
+Car::Car(int x, int y): LandVehicle(x,y) {
     std::cout << "How many number of seats of your car: "; std::cin >> maxSeats;
     while (maxSeats < 1) {
         std::cout << "Your input is invalid, number of seats must be > 1" << std::endl;
