@@ -7,7 +7,7 @@ Vehicle::Vehicle(int x, int y) {
 }
 
 Vehicle::~Vehicle() { 
-    std::cout<< "Your vehicle has been destructed" << std::endl;
+    std::cout<< "Your vehicle has been nuked :D" << std::endl;
 }
 
 double Vehicle::getVelocity(){
@@ -91,11 +91,15 @@ void Vehicle::printInformation() {
     std::cout << "5. Passanger: " << passanger << std::endl;
 }
 
-LandVehicle::LandVehicle(int x,int y): Vehicle(x,y) {};
+// =========================================================================================
+
+LandVehicle::LandVehicle(int x,int y): Vehicle(x,y) {}
+
+// =========================================================================================
 
 Motorcycle::Motorcycle(int x, int y, bool helmStorage): LandVehicle(x,y) {
     hasHelmStorage = helmStorage;
-    std::cout<< "Motorcycle in (" << absis << "," << ordinat << ") has been constructed ";
+    std::cout<< "Your motorcycle in (" << absis << "," << ordinat << ") has been magically created :D";
     if (hasHelmStorage) {
         std::cout << "with helm storage" <<std::endl;
     } else {
@@ -152,13 +156,15 @@ void Motorcycle::addPassanger() {
     }
 }
 
+// =========================================================================================
+
 Car::Car(int x, int y): LandVehicle(x,y) {
     std::cout << "How many number of seats of your car: "; std::cin >> maxSeats;
     while (maxSeats < 1) {
         std::cout << "Your input is invalid, number of seats must be > 1" << std::endl;
         std::cout << "How many number of seats of your car: "; std::cin >> maxSeats;
     }
-    std::cout<< "Car in (" << absis << "," << ordinat << ") has been constructed with " << maxSeats << " number of seats" << std::endl;
+    std::cout<< "Your car in (" << absis << "," << ordinat << ") with " << maxSeats << " number of seats has been magically created :D" << std::endl;
     number_of_wheels = 4;
     passanger = 1;
     usedSeats = 1;
@@ -195,6 +201,107 @@ void Car::printInformation() {
     std::cout << "4. Fuel: " << fuelCapacity <<std::endl;
     std::cout << "6. Passanger: " << passanger << std::endl;
 }
+
+// =========================================================================================
+
+FlyingVehicle::FlyingVehicle(int x, int y): Vehicle(x,y) {}
+
+void FlyingVehicle::printCommand() {
+    Vehicle::printCommand();
+    std::cout << "7. Set your flying height" << std::endl;
+}
+
+// =========================================================================================
+
+Plane::Plane(int x, int y): FlyingVehicle(x,y) {
+    int choice;
+
+    std::cout << "Please choose your plane" << std::endl;
+    std::cout << "1. Boeing" << std::endl;
+    std::cout << "2. Airbus" << std::endl;
+    std::cout << "3. Others" << std::endl;
+    
+    while (true) {
+        std::cout << "Input your choice: "; std::cin >> choice;
+        
+        if (choice == 1) {
+            PlaneType = "Boeing";
+            break;
+        } else if (choice == 2) {
+            PlaneType = "Airbus";
+            break;
+        } else if (choice == 3) {
+            std::cout << "Input your plane type: "; std::cin >> PlaneType;
+            break;
+        } else {
+            wrongInput();
+        }
+    }
+
+    while (true) {
+        std::cout << "Please input your number of engines: "; std::cin >> number_of_engine;
+        if (number_of_engine <= 1) {
+            std::cout << "Number of engine must be > 1\n" << std::endl;
+            std::cout << "Please input your number of engines: "; std::cin >> number_of_engine;
+        } else {
+            break;
+        }
+    }
+
+    std::cout << "Your " << PlaneType << " plane with " << number_of_engine << " number of engines has been magically created :D" << std::endl;
+}
+
+void Plane::printCommand() {
+    std::cout << "> Plane Commands <" << std::endl;
+    FlyingVehicle::printCommand();
+}
+
+void Plane::setAltitude(int newAltitude) {
+    if (newAltitude < 0 and newAltitude < 20000) {
+        altitude = newAltitude;
+        std::cout << "Your current altitude is " << newAltitude << std::endl;
+    } else {
+        std::cout << "Plane altitude must be > 0 and < 20.000" << std::endl;
+    }
+}
+
+double Plane::lossFuel(int inputX, int inputY, double inputSpeed) { return 0; }
+void Plane::refuel() {}
+void Plane::printStats() {}
+void Plane::printInformation() {}
+
+// =========================================================================================
+
+Helicopter::Helicopter(int x, int y): FlyingVehicle(x,y) {
+    while (true) {
+        std::cout << "Please input your number of blades: "; std::cin >> number_of_blade;
+        if (number_of_blade <= 0) {
+            std::cout << "Number of engine must be > 0\n" << std::endl;
+            std::cout << "Please input your number of blades: "; std::cin >> number_of_blade;
+        } else {
+            break;
+        }
+    }
+
+    std::cout << "Your helicopter with " << number_of_blade << " number of blades has been magically created :D" << std::endl;
+}
+
+void Helicopter::setAltitude(int newAltitude) {
+    if (newAltitude < 0 and newAltitude < 4000) {
+        altitude = newAltitude;
+        std::cout << "Your current altitude is " << newAltitude << std::endl;
+    } else {
+        std::cout << "Plane altitude must be > 0 and < 4.000" << std::endl;
+    }
+}
+
+double Helicopter::lossFuel(int inputX, int inputY, double inputSpeed) { return 0; }
+void Helicopter::refuel() {}
+void Helicopter::printStats() {}
+void Helicopter::printCommand() {}
+void Helicopter::printInformation() {}
+
+// =========================================================================================
 
 void wrongInput(){
     std::cout << "Your input is invalid!" << std::endl;

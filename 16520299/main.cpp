@@ -13,6 +13,8 @@ int main(){
     std::cout << "\nChoose your vehicle" << std::endl;
     std::cout << "1. Motorcycle" << std::endl;
     std::cout << "2. Car" << std::endl;
+    std::cout << "3. Plane" << std::endl;
+    std::cout << "4. Helicopter" << std::endl;
     std::cout << "\nInput your choice: "; std::cin >> choice;
 
     // Use if-else if because cannot initialize class inside switch
@@ -124,7 +126,60 @@ int main(){
             }
             std::cout <<"\n===================\n" << std::endl;
         } while (true);
+    } else if (choice == 3) {
+        Plane myPlane = Plane(absis, ordinat);
+
+        std::cout << std::endl;
+        do {
+            myPlane.printCommand();
+            std::cin >> choice;
+            
+            if (choice == 0) {
+                std::cout << "\nExit the program" << std::endl; 
+                break;
+            }
+
+            switch (choice){
+                case 1:
+                    myPlane.turnOnEngine();
+                    break;
+
+                case 2:
+                    std::cout << "New speed: "; std::cin >> speed;
+                    myPlane.setSpeed(speed);
+                    break;
+
+                case 3:
+                    std::cout << "Please input how much you wanna go" << std::endl;
+                    std::cout << "X direction: "; std::cin >> absis;
+                    std::cout << "Y direction: "; std::cin >> ordinat;
+                    myPlane.move(absis,ordinat);
+                    break;
+
+                case 4:
+                    myPlane.refuel();
+                    break;
+
+                case 5:
+                    myPlane.addPassanger();
+                    break;
+
+                case 6:
+                    myPlane.printInformation();
+                    break;
+
+                default:
+                    wrongInput();
+                    break;
+            }
+            std::cout <<"\n===================\n" << std::endl;
+        } while (true);
+
+    } else if (choice == 4) {
+        // isnt implemented yet
     } else {
         wrongInput();
+        std::cout << "\n" << std::endl;
+        main();
     }
 }
