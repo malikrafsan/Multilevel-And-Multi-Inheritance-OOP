@@ -8,16 +8,13 @@ class Vehicle {
         double speed = 0;
 
     public:
-        Vehicle() { 
-            std::cout<< "Vehicle has been constructed" << std::endl; 
-        }
-        
         Vehicle(int x, int y) { 
             absis = x;
             ordinat = y;
         }
+
         ~Vehicle() { 
-            std::cout<< "Vehicle has been deleted" << std::endl;
+            std::cout<< "Your vehicle has been deleted" << std::endl;
         }
 
         double getVelocity(){
@@ -47,14 +44,34 @@ class Vehicle {
             std::cout<<"Engine is turned on" << std::endl;
         }
 
-        void moving(int x, int y, double lossFuel) {
-            absis += x;
-            ordinat += y;
-            fuelCapacity -= lossFuel;
-            std::cout << "You have moved to (" << absis << "," << ordinat << ")" << std::endl;
+        void move(int x, int y) {
+            if (!isEngineOn) {
+                std::cout << "The engine is not turned on yet" << std::endl;
+                return;
+            }
+
+            if (speed == 0) {
+                std::cout << "Please set your speed > 0 first" << std::endl;
+                return;
+            }
+
+            int moveX = x, moveY = y;
+            if (x < 0) { moveX = -x; }
+            if (y < 0) { moveY = -y; }
+            double loss = lossFuel(moveX,moveY,speed); 
+            
+            if (loss > fuelCapacity){
+                std::cout << "Not enough fuel" << std::endl;
+                return;
+            } else {
+                absis += x;
+                ordinat += y;
+                fuelCapacity -= loss;
+                std::cout << "You have moved to (" << absis << "," << ordinat << ")" << std::endl;
+            }
         }
 
-        virtual void move(int x, int y) = 0;
+        virtual double lossFuel(int inputX, int inputY, double inputSpeed) = 0;
         virtual void refuel() = 0;
         virtual void printStats() = 0;
         virtual void printCommand() = 0;
@@ -87,28 +104,8 @@ class Motorcycle : public Vehicle {
             }
         }
 
-        void move(int x, int y) {
-            if (!isEngineOn) {
-                std::cout << "The engine is not turned on yet" << std::endl;
-                return;
-            }
-
-            if (speed == 0) {
-                std::cout << "Please set your speed > 0 first" << std::endl;
-                return;
-            }
-
-            int moveX = x, moveY = y;
-            if (x < 0) { moveX = -x; }
-            if (y < 0) { moveY = -y; }
-            double lossFuel = 0.5*(speed*moveX + speed*moveY)*passanger; 
-            
-            if (lossFuel > fuelCapacity){
-                std::cout << "Not enough fuel" << std::endl;
-                return;
-            } else {
-                moving(x,y,lossFuel);
-            }
+        double lossFuel(int inputX, int inputY, double inputSpeed) {
+            return 0.5*(inputSpeed*inputX + inputSpeed*inputY)*passanger;
         }
 
         void refuel() {
@@ -159,6 +156,26 @@ class Motorcycle : public Vehicle {
             }
             
         }
+};
+
+class Car: public Vehicle {
+    private:
+        int number_of_seats;
+        int passanger = 1;
+
+    public:
+        Car(int x, int y): Vehicle(x,y) {
+            std::cout << "How many number of seats of your car: "; std::cin >> number_of_seats;
+            while (number_of_seats < 1) {
+                std::cout << "Your input is invalid, number of seats must be > 1" << std::endl;
+                std::cout << "How many number of seats of your car: "; std::cin >> number_of_seats;
+            }
+        }
+        void move(int x, int y) {};
+        void refuel() {};
+        void printStats() {};
+        void printCommand() {};
+        void printInformation() {};
 };
 
 void wrongInput(){
@@ -231,8 +248,9 @@ int main(){
             }
             std::cout <<"\n===================\n" << std::endl;
         } while (true);
-    } else{
-        // Has not implemented
+
+    } else if (choice == 2) {
+        //Car myCar = Car(absis,ordinat);
     }
 }
 
