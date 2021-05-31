@@ -80,11 +80,27 @@ class Vehicle {
             }
         }
 
+        void printCommand() {
+            std::cout << "1. Turn on engine" << std::endl;
+            std::cout << "2. Set speed" << std::endl;
+            std::cout << "3. Move" << std::endl;
+            std::cout << "4. Refuel" << std::endl;
+            std::cout << "5. Add passanger" << std::endl;
+            std::cout << "6. Display information" << std::endl;
+        }
+
+        void printInformation() {
+            std::cout << "\n> Information <" << std::endl;
+            std::cout << "1. Engine is " << (isEngineOn ? "on" : "off") <<std::endl;
+            std::cout << "2. Speed: " << speed <<std::endl;
+            std::cout << "3. Position: (" << absis << "," << ordinat << ")" <<std::endl;
+            std::cout << "4. Fuel: " << fuelCapacity <<std::endl;
+            std::cout << "5. Passanger: " << passanger << std::endl;
+        }
+
         virtual double lossFuel(int inputX, int inputY, double inputSpeed) = 0;
         virtual void refuel() = 0;
         virtual void printStats() = 0;
-        virtual void printCommand() = 0;
-        virtual void printInformation() = 0;
 };
 
 class Motorcycle : public Vehicle {
@@ -131,39 +147,23 @@ class Motorcycle : public Vehicle {
         }
 
         void printCommand(){
-            std::cout << "> Motorcycle command <" << std::endl;
-            std::cout << "1. Turn on engine" << std::endl;
-            std::cout << "2. Set speed" << std::endl;
-            std::cout << "3. Move" << std::endl;
-            std::cout << "4. Refuel" << std::endl;
-            std::cout << "5. Add external helm storage" << std::endl;
-            std::cout << "6. Add passanger" << std::endl;
-            std::cout << "7. Display information" << std::endl;
+            std::cout << "> Motorcycle Commands" << std::endl;
+            Vehicle::printCommand();
+            std::cout << "7. Add external helm storage" << std::endl;
             std::cout << "0. Stop riding\n" << std::endl;
             std::cout << "Input yout choice: ";
         }
 
         void printInformation() {
-            std::cout << "\n> Information <" << std::endl;
-            std::cout << "1. Engine is " << (isEngineOn ? "on" : "off") <<std::endl;
-            std::cout << "2. Speed: " << speed <<std::endl;
-            std::cout << "3. Position: (" << absis << "," << ordinat << ")" <<std::endl;
-            std::cout << "4. Fuel: " << fuelCapacity <<std::endl;
-            std::cout << "5. Helm storage: " << (hasHelmStorage ? "yes" : "no") <<std::endl;
-            std::cout << "6. Passanger: " << passanger << std::endl;
+            Vehicle::printInformation();
+            std::cout << "6. Helm storage: " << (hasHelmStorage ? "yes" : "no") <<std::endl;
         }
 
-        // Override addPassanger procedure
         void addPassanger() {
-            if (passanger < maxSeats){
-                if (hasHelmStorage) {
-                    passanger += 1;
-                    std::cout << "Passanger has been added" << std::endl;
-                } else {
-                    std::cout << "Please add helm storage before add passanger" << std::endl;
-                }
+            if (hasHelmStorage) {
+                Vehicle::addPassanger();
             } else {
-                std::cout << "Seats are full" << std::endl;
+                std::cout << "Please add helm storage before add passanger" << std::endl;
             }
         }
 };
@@ -199,13 +199,8 @@ class Car: public Vehicle {
         }
 
         void printCommand() {
-            std::cout << "> Car command <" << std::endl;
-            std::cout << "1. Turn on engine" << std::endl;
-            std::cout << "2. Set speed" << std::endl;
-            std::cout << "3. Move" << std::endl;
-            std::cout << "4. Refuel" << std::endl;
-            std::cout << "5. Add passanger" << std::endl;
-            std::cout << "6. Display information" << std::endl;
+            std::cout << "> Car Commands <" << std::endl;
+            Vehicle::printCommand();
             std::cout << "0. Stop driving\n" << std::endl;
             std::cout << "Input yout choice: ";
         }
@@ -281,15 +276,15 @@ int main(){
                     break;
 
                 case 5:
-                    bike.addExternalHelmStorage();
-                    break;
-
-                case 6:
                     bike.addPassanger();
                     break;
 
-                case 7:
+                case 6:
                     bike.printInformation();
+                    break;
+
+                case 7:
+                    bike.addExternalHelmStorage();
                     break;
 
                 default:
