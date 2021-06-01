@@ -24,6 +24,8 @@ void Vehicle::setSpeed (){
     std::cout << "New speed: "; std::cin >> newSpeed;
     if (newSpeed < 0) {
         std::cout << "Speed cannot be under 0" << std::endl;
+    } else if (newSpeed > maxSpeed) {
+        std::cout << "Your speed cannot exceed speed limit: " << maxSpeed << std::endl;
     } else {
         speed = newSpeed;
         std::cout << "Speed has been changed to " << newSpeed << std::endl;
@@ -121,9 +123,9 @@ Motorcycle::Motorcycle(int x, int y): LandVehicle(x,y) {
     }
     std::cout << " has been magically created :D" <<std::endl;
 
+    number_of_wheels = 2;
     maxSeats = 2;
-    passanger = 1;
-    usedSeats = 1;
+    maxSpeed = 10;
 }
 
 void Motorcycle::addExternalHelmStorage(){
@@ -149,6 +151,7 @@ void Motorcycle::printStats(){
     std::cout << "1. LossFuel : 0.5 * (speed*moveX + speed*moveY) * passanger" << std::endl;
     std::cout << "2. Maximum number of seats : 2" << std::endl;
     std::cout << "3. Maximum fuel capacity : 500" << std::endl;
+    std::cout << "4. Maximum speed: " << maxSpeed << std::endl;
 }
 
 void Motorcycle::printCommand(){
@@ -181,9 +184,9 @@ Car::Car(int x, int y): LandVehicle(x,y) {
         std::cout << "How many number of seats of your car: "; std::cin >> maxSeats;
     }
     std::cout<< "Your car in (" << absis << "," << ordinat << ") with " << maxSeats << " number of seats has been magically created :D" << std::endl;
+    
     number_of_wheels = 4;
-    passanger = 1;
-    usedSeats = 1;
+    maxSpeed = 20;
 }
 
 double Car::lossFuel(int moveX, int moveY) { 
@@ -200,17 +203,23 @@ void Car::printStats() {
     std::cout << "1. LossFuel : speed * (1.5) * (moveX + moveY) * (0.75 * passanger)" << std::endl;
     std::cout << "2. Maximum number of seats : " << maxSeats << std::endl;
     std::cout << "3. Maximum fuel capacity : 2.000" << std::endl;
+    std::cout << "4. Maximum speed: " << maxSpeed << std::endl;
 }
 
 void Car::printCommand() {
     std::cout << "> Car Commands <" << std::endl;
     Vehicle::printCommand();
+    std::cout << "7. Max speed: " << maxSpeed <<std::endl;
     std::cout << "0. Stop driving\n" << std::endl;
     std::cout << "Input yout choice: ";
 }
 
 void Car::printInformation() {
     Vehicle::printInformation();
+}
+
+void Car::useNOS() {
+    maxSpeed = 30;
 }
 
 // =========================================================================================
@@ -220,6 +229,8 @@ FlyingVehicle::FlyingVehicle(int x, int y): Vehicle(x,y) {}
 void FlyingVehicle::printCommand() {
     Vehicle::printCommand();
     std::cout << "7. Set your flying height" << std::endl;
+    std::cout << "0. Stop flying\n" << std::endl;
+    std::cout << "Input yout choice: ";
 }
 
 void FlyingVehicle::printInformation() {
@@ -279,13 +290,13 @@ Plane::Plane(int x, int y): FlyingVehicle(x,y) {
         }
     }
     std::cout << "\nYour " << PlaneType << " plane with " << number_of_engine << " number of engines and " << maxSeats << " number of seats has been magically created :D" << std::endl;
+
+    maxSpeed = 100;
 }
 
 void Plane::printCommand() {
     std::cout << "> Plane Commands <" << std::endl;
     FlyingVehicle::printCommand();
-    std::cout << "0. Stop flying\n" << std::endl;
-    std::cout << "Input yout choice: ";
 }
 
 void Plane::setAltitude() {
@@ -314,6 +325,7 @@ void Plane::printStats() {
     std::cout << "1. LossFuel : 2 * speed * (moveX + moveY) * (0.5 * passanger) * ((25.000 - altitude) / 10.000)" << std::endl;
     std::cout << "2. Maximum number of seats : " << maxSeats << std::endl;
     std::cout << "3. Maximum fuel capacity : 100.000" << std::endl;
+    std::cout << "4. Maximum speed: " << maxSpeed << std::endl;
 }
 
 void Plane::printInformation() {
@@ -348,6 +360,8 @@ Helicopter::Helicopter(int x, int y): FlyingVehicle(x,y) {
         }
     }
     std::cout << "Your helicopter with " << number_of_blade << " number of blades has been magically created :D" << std::endl;
+
+    maxSpeed = 40;
 }
 
 void Helicopter::setAltitude() {
@@ -376,6 +390,7 @@ void Helicopter::printStats() {
     std::cout << "1. LossFuel : 2 * speed * (moveX + moveY) * (0.5 * passanger) * ((25.000 - altitude) / 10.000)" << std::endl;
     std::cout << "2. Maximum number of seats : " << maxSeats << std::endl;
     std::cout << "3. Maximum fuel capacity : 100.000" << std::endl;
+    std::cout << "4. Maximum speed: " << maxSpeed << std::endl;
 }
 
 void Helicopter::printCommand() {

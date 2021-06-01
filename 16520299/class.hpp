@@ -2,10 +2,10 @@
 
 class Vehicle {
     protected:
-        int absis, ordinat, passanger=1, maxSeats, usedSeats;
+        int absis, ordinat, passanger=1, maxSeats;
         double fuelCapacity = 0;
         bool isEngineOn = false;
-        double speed = 0;
+        double speed = 0, maxSpeed;
 
     public:
         Vehicle(int x, int y);
@@ -53,6 +53,7 @@ class Car: public LandVehicle {
         void printStats();
         void printCommand();
         void printInformation();
+        void useNOS();
 };
 
 class FlyingVehicle: public Vehicle {
