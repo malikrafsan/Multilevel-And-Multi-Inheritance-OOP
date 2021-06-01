@@ -40,9 +40,6 @@ int main(){
                     break;
 
                 case 3:
-                    std::cout << "Please input how much you wanna go" << std::endl;
-                    std::cout << "X direction: "; std::cin >> absis;
-                    std::cout << "Y direction: "; std::cin >> ordinat;
                     bike.move();
                     break;
 
@@ -105,6 +102,10 @@ int main(){
 
                 case 6:
                     myCar.printInformation();
+                    break;
+
+                case 7:
+                    myCar.useNOS();
                     break;
 
                 default:
