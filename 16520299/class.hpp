@@ -11,15 +11,16 @@ class Vehicle {
     public:
         Vehicle(int x, int y);
         ~Vehicle();
-        double getVelocity();
+        
         void setSpeed ();
         void turnOnEngine();
         void move();
         void addPassanger();
-        void printCommand();
         void printInformation();
-        virtual double lossFuel(int moveX, int moveY) = 0;
         void refuel();
+
+        virtual void printCommand();
+        virtual double lossFuel(int moveX, int moveY) = 0;
         virtual void printStats() = 0;
 };
 
@@ -51,7 +52,6 @@ class Car: public LandVehicle {
         double lossFuel(int moveX, int moveY);
         void printStats();
         void printCommand();
-        void printInformation();
         void useNOS();
 };
 
