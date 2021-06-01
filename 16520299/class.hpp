@@ -11,9 +11,9 @@ class Vehicle {
         Vehicle(int x, int y);
         ~Vehicle();
         double getVelocity();
-        void setSpeed (double newSpeed);
+        void setSpeed ();
         void turnOnEngine();
-        void move(int x, int y);
+        void move();
         void addPassanger();
         void printCommand();
         void printInformation();
@@ -62,9 +62,9 @@ class FlyingVehicle: public Vehicle {
     public:
         FlyingVehicle(int x, int y);
         void printCommand();
-        virtual void setAltitude(int newAltitude) = 0;
+        virtual void setAltitude() = 0;
         void printInformation();
-        void move(int x, int y);
+        void move();
 };
 
 class Plane: public FlyingVehicle {
@@ -79,7 +79,7 @@ class Plane: public FlyingVehicle {
         void printStats();
         void printCommand();
         void printInformation();
-        void setAltitude(int newAltitude);
+        void setAltitude();
         void addPassanger();
 };
 
@@ -94,7 +94,7 @@ class Helicopter: public FlyingVehicle {
         void printStats();
         void printCommand();
         void printInformation();
-        void setAltitude(int newAltitude);
+        void setAltitude();
         void addPassanger();
 };
 

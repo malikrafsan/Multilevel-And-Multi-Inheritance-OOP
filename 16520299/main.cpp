@@ -30,22 +30,20 @@ int main(){
                 std::cout << "\nExit the program\n" << std::endl; 
                 break;
             }
-
             switch (choice){
                 case 1:
                     bike.turnOnEngine();
                     break;
 
                 case 2:
-                    std::cout << "New speed: "; std::cin >> speed;
-                    bike.setSpeed(speed);
+                    bike.setSpeed();
                     break;
 
                 case 3:
                     std::cout << "Please input how much you wanna go" << std::endl;
                     std::cout << "X direction: "; std::cin >> absis;
                     std::cout << "Y direction: "; std::cin >> ordinat;
-                    bike.move(absis,ordinat);
+                    bike.move();
                     break;
 
                 case 4:
@@ -90,15 +88,11 @@ int main(){
                     break;
 
                 case 2:
-                    std::cout << "New speed: "; std::cin >> speed;
-                    myCar.setSpeed(speed);
+                    myCar.setSpeed();
                     break;
 
                 case 3:
-                    std::cout << "Please input how much you wanna go" << std::endl;
-                    std::cout << "X direction: "; std::cin >> absis;
-                    std::cout << "Y direction: "; std::cin >> ordinat;
-                    myCar.move(absis,ordinat);
+                    myCar.move();
                     break;
 
                 case 4:
@@ -139,15 +133,11 @@ int main(){
                     break;
 
                 case 2:
-                    std::cout << "New speed: "; std::cin >> speed;
-                    myPlane.setSpeed(speed);
+                    myPlane.setSpeed();
                     break;
 
                 case 3:
-                    std::cout << "Please input how much you wanna go" << std::endl;
-                    std::cout << "X direction: "; std::cin >> absis;
-                    std::cout << "Y direction: "; std::cin >> ordinat;
-                    myPlane.move(absis,ordinat);
+                    myPlane.move();
                     break;
 
                 case 4:
@@ -163,8 +153,7 @@ int main(){
                     break;
 
                 case 7:
-                    std::cout << "New altitude: "; std::cin >> altitude;
-                    myPlane.setAltitude(altitude);
+                    myPlane.setAltitude();
                     break;
 
                 default:
@@ -193,15 +182,11 @@ int main(){
                     break;
 
                 case 2:
-                    std::cout << "New speed: "; std::cin >> speed;
-                    myHeli.setSpeed(speed);
+                    myHeli.setSpeed();
                     break;
 
                 case 3:
-                    std::cout << "Please input how much you wanna go" << std::endl;
-                    std::cout << "X direction: "; std::cin >> absis;
-                    std::cout << "Y direction: "; std::cin >> ordinat;
-                    myHeli.move(absis,ordinat);
+                    myHeli.move();
                     break;
 
                 case 4:
@@ -217,8 +202,7 @@ int main(){
                     break;
 
                 case 7:
-                    std::cout << "New altitude: "; std::cin >> altitude;
-                    myHeli.setAltitude(altitude);
+                    myHeli.setAltitude();
                     break;
 
                 default:

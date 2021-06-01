@@ -14,12 +14,14 @@ double Vehicle::getVelocity(){
     return speed;
 }
 
-void Vehicle::setSpeed (double newSpeed){
+void Vehicle::setSpeed (){
     if (!isEngineOn) {
         std::cout << "The engine is not turned on yet" << std::endl;
         return;
     }
 
+    double newSpeed;
+    std::cout << "New speed: "; std::cin >> newSpeed;
     if (newSpeed < 0) {
         std::cout << "Speed cannot be under 0" << std::endl;
     } else {
@@ -37,7 +39,7 @@ void Vehicle::turnOnEngine(){
     std::cout<<"Engine is turned on" << std::endl;
 }
 
-void Vehicle::move(int x, int y) {
+void Vehicle::move() {
     if (!isEngineOn) {
         std::cout << "The engine is not turned on yet" << std::endl;
         return;
@@ -47,6 +49,11 @@ void Vehicle::move(int x, int y) {
         std::cout << "Please set your speed > 0 first" << std::endl;
         return;
     }
+
+    int x, y;
+    std::cout << "Please input how much you wanna go" << std::endl;
+    std::cout << "X direction: "; std::cin >> x;
+    std::cout << "Y direction: "; std::cin >> y;
 
     int moveX = x, moveY = y;
     if (x < 0) { moveX = -x; }
@@ -220,11 +227,11 @@ void FlyingVehicle::printInformation() {
     std::cout << "7. Altitude: " << altitude << std::endl;
 }
 
-void FlyingVehicle::move(int x, int y) {
+void FlyingVehicle::move() {
     if (altitude <= 0) {
         std::cout << "Your altitude must be > 0 first to move" << std::endl;
     } else {
-        Vehicle::move(x,y);
+        Vehicle::move();
     }
 }
 
@@ -281,7 +288,10 @@ void Plane::printCommand() {
     std::cout << "Input yout choice: ";
 }
 
-void Plane::setAltitude(int newAltitude) {
+void Plane::setAltitude() {
+    int newAltitude;
+    std::cout << "New altitude: "; std::cin >> newAltitude;
+
     if (newAltitude >= 0 && newAltitude <= 20000) {
         altitude = newAltitude;
         std::cout << "Your current altitude is " << newAltitude << std::endl;
@@ -340,7 +350,10 @@ Helicopter::Helicopter(int x, int y): FlyingVehicle(x,y) {
     std::cout << "Your helicopter with " << number_of_blade << " number of blades has been magically created :D" << std::endl;
 }
 
-void Helicopter::setAltitude(int newAltitude) {
+void Helicopter::setAltitude() {
+    int newAltitude;
+    std::cout << "New altitude: "; std::cin >> newAltitude;
+
     if (newAltitude < 0 and newAltitude < 4000) {
         altitude = newAltitude;
         std::cout << "Your current altitude is " << newAltitude << std::endl;
