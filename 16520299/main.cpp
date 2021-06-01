@@ -2,7 +2,7 @@
 #include "class.hpp"
 
 int main(){
-    int absis, ordinat;
+    int absis, ordinat, altitude;
     double speed;
 
     std::cout << "Please input your position" << std::endl;
@@ -119,10 +119,11 @@ int main(){
             }
             std::cout <<"\n===================\n" << std::endl;
         } while (true);
+
     } else if (choice == 3) {
         Plane myPlane = Plane(absis, ordinat);
-
         std::cout << std::endl;
+
         do {
             myPlane.printCommand();
             std::cin >> choice;
@@ -161,6 +162,11 @@ int main(){
                     myPlane.printInformation();
                     break;
 
+                case 7:
+                    std::cout << "New altitude: "; std::cin >> altitude;
+                    myPlane.setAltitude(altitude);
+                    break;
+
                 default:
                     wrongInput();
                     break;
@@ -169,7 +175,59 @@ int main(){
         } while (true);
 
     } else if (choice == 4) {
-        // isnt implemented yet
+        Helicopter myHeli = Helicopter(absis, ordinat);
+        std::cout << std::endl;
+
+        do {
+            myHeli.printCommand();
+            std::cin >> choice;
+            
+            if (choice == 0) {
+                std::cout << "\nExit the program" << std::endl; 
+                break;
+            }
+
+            switch (choice){
+                case 1:
+                    myHeli.turnOnEngine();
+                    break;
+
+                case 2:
+                    std::cout << "New speed: "; std::cin >> speed;
+                    myHeli.setSpeed(speed);
+                    break;
+
+                case 3:
+                    std::cout << "Please input how much you wanna go" << std::endl;
+                    std::cout << "X direction: "; std::cin >> absis;
+                    std::cout << "Y direction: "; std::cin >> ordinat;
+                    myHeli.move(absis,ordinat);
+                    break;
+
+                case 4:
+                    myHeli.refuel();
+                    break;
+
+                case 5:
+                    myHeli.addPassanger();
+                    break;
+
+                case 6:
+                    myHeli.printInformation();
+                    break;
+
+                case 7:
+                    std::cout << "New altitude: "; std::cin >> altitude;
+                    myHeli.setAltitude(altitude);
+                    break;
+
+                default:
+                    wrongInput();
+                    break;
+            }
+            std::cout <<"\n===================\n" << std::endl;
+        } while (true);
+        
     } else {
         wrongInput();
         std::cout << "\n" << std::endl;

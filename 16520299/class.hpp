@@ -2,7 +2,7 @@
 
 class Vehicle {
     protected:
-        int absis, ordinat, number_of_seats, passanger, maxSeats, usedSeats;
+        int absis, ordinat, passanger, maxSeats, usedSeats;
         double fuelCapacity = 0;
         bool isEngineOn = false;
         double speed = 0;
@@ -17,7 +17,7 @@ class Vehicle {
         void addPassanger();
         void printCommand();
         void printInformation();
-        virtual double lossFuel(int inputX, int inputY, double inputSpeed) = 0;
+        virtual double lossFuel(int moveX, int moveY) = 0;
         virtual void refuel() = 0;
         virtual void printStats() = 0;
 };
@@ -37,7 +37,7 @@ class Motorcycle: public LandVehicle {
     public:
         Motorcycle(int x, int y);
         void addExternalHelmStorage();
-        double lossFuel(int inputX, int inputY, double inputSpeed);
+        double lossFuel(int moveX, int moveY);
         void refuel();
         void printStats();
         void printCommand();
@@ -48,7 +48,7 @@ class Motorcycle: public LandVehicle {
 class Car: public LandVehicle {
     public:
         Car(int x, int y);
-        double lossFuel(int inputX, int inputY, double inputSpeed);
+        double lossFuel(int moveX, int moveY);
         void refuel();
         void printStats();
         void printCommand();
@@ -72,12 +72,13 @@ class Plane: public FlyingVehicle {
     
     public:
         Plane(int x, int y);
-        double lossFuel(int inputX, int inputY, double inputSpeed);
+        double lossFuel(int moveX, int moveY);
         void refuel();
         void printStats();
         void printCommand();
         void printInformation();
         void setAltitude(int newAltitude);
+        void addPassanger();
 };
 
 class Helicopter: public FlyingVehicle {
@@ -86,7 +87,7 @@ class Helicopter: public FlyingVehicle {
     
     public:
         Helicopter(int x, int y);
-        double lossFuel(int inputX, int inputY, double inputSpeed);
+        double lossFuel(int moveX, int moveY);
         void refuel();
         void printStats();
         void printCommand();
