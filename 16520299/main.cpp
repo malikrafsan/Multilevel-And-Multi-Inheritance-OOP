@@ -27,7 +27,7 @@ int main(){
             std::cin >> choice;
             
             if (choice == 0) {
-                std::cout << "\nExit the program" << std::endl; 
+                std::cout << "\nExit the program\n" << std::endl; 
                 break;
             }
 
@@ -80,7 +80,7 @@ int main(){
             std::cin >> choice;
             
             if (choice == 0) {
-                std::cout << "\nExit the program" << std::endl; 
+                std::cout << "\nExit the program\n" << std::endl; 
                 break;
             }
 
@@ -230,7 +230,7 @@ int main(){
         
     } else {
         wrongInput();
-        std::cout << "\n" << std::endl;
+        std::cout << std::endl;
         main();
     }
 }
