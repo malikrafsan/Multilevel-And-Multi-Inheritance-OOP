@@ -3,9 +3,10 @@
 class Vehicle {
     protected:
         int absis, ordinat, passanger=1, maxSeats;
-        double fuelCapacity = 0;
+        double fuelCapacity = 0, maxFuel;
         bool isEngineOn = false;
         double speed = 0, maxSpeed;
+        std::string lossFuelFormula;
 
     public:
         Vehicle(int x, int y);
@@ -18,7 +19,7 @@ class Vehicle {
         void printCommand();
         void printInformation();
         virtual double lossFuel(int moveX, int moveY) = 0;
-        virtual void refuel() = 0;
+        void refuel();
         virtual void printStats() = 0;
 };
 
@@ -38,7 +39,6 @@ class Motorcycle: public LandVehicle {
         Motorcycle(int x, int y);
         void addExternalHelmStorage();
         double lossFuel(int moveX, int moveY);
-        void refuel();
         void printStats();
         void printCommand();
         void printInformation();
@@ -49,7 +49,6 @@ class Car: public LandVehicle {
     public:
         Car(int x, int y);
         double lossFuel(int moveX, int moveY);
-        void refuel();
         void printStats();
         void printCommand();
         void printInformation();
@@ -76,10 +75,8 @@ class Plane: public FlyingVehicle {
     public:
         Plane(int x, int y);
         double lossFuel(int moveX, int moveY);
-        void refuel();
         void printStats();
         void printCommand();
-        void printInformation();
         void setAltitude();
         void addPassanger();
 };
@@ -91,12 +88,8 @@ class Helicopter: public FlyingVehicle {
     public:
         Helicopter(int x, int y);
         double lossFuel(int moveX, int moveY);
-        void refuel();
         void printStats();
-        void printCommand();
-        void printInformation();
         void setAltitude();
-        void addPassanger();
 };
 
 void wrongInput();
