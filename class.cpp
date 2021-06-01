@@ -7,11 +7,12 @@ Vehicle::Vehicle(int x, int y) {
 }
 
 Vehicle::~Vehicle() { 
-    std::cout<< "Your vehicle has been nuked :D" << std::endl;
-}
-
-double Vehicle::getVelocity(){
-    return speed;
+    std::cout<<"        ,--.!,  " <<std::endl;
+    std::cout<<"     __/   -*-  " <<std::endl;
+    std::cout<<"    ,d08b. '|`  " <<std::endl;
+    std::cout<<"    0088MM      "<<std::endl;
+    std::cout<<"    `9MMP'      " <<std::endl;
+    std::cout<< "Your vehicle has been blown up :D" << std::endl;
 }
 
 void Vehicle::setSpeed (){
@@ -212,10 +213,6 @@ void Car::printCommand() {
     std::cout << "7. Use NOS (increase max speed)" << std::endl;
     std::cout << "0. Stop driving\n" << std::endl;
     std::cout << "Input yout choice: ";
-}
-
-void Car::printInformation() {
-    Vehicle::printInformation();
 }
 
 void Car::useNOS() {
