@@ -2,18 +2,18 @@
 
 class Vehicle {
     protected:
-        int absis, ordinat, passanger=1, maxSeats, usedSeats;
+        int absis, ordinat, passanger=1, maxSeats;
         double fuelCapacity = 0;
         bool isEngineOn = false;
-        double speed = 0;
+        double speed = 0, maxSpeed;
 
     public:
         Vehicle(int x, int y);
         ~Vehicle();
         double getVelocity();
-        void setSpeed (double newSpeed);
+        void setSpeed ();
         void turnOnEngine();
-        void move(int x, int y);
+        void move();
         void addPassanger();
         void printCommand();
         void printInformation();
@@ -53,6 +53,7 @@ class Car: public LandVehicle {
         void printStats();
         void printCommand();
         void printInformation();
+        void useNOS();
 };
 
 class FlyingVehicle: public Vehicle {
@@ -62,9 +63,9 @@ class FlyingVehicle: public Vehicle {
     public:
         FlyingVehicle(int x, int y);
         void printCommand();
-        virtual void setAltitude(int newAltitude) = 0;
+        virtual void setAltitude() = 0;
         void printInformation();
-        void move(int x, int y);
+        void move();
 };
 
 class Plane: public FlyingVehicle {
@@ -79,7 +80,7 @@ class Plane: public FlyingVehicle {
         void printStats();
         void printCommand();
         void printInformation();
-        void setAltitude(int newAltitude);
+        void setAltitude();
         void addPassanger();
 };
 
@@ -94,7 +95,7 @@ class Helicopter: public FlyingVehicle {
         void printStats();
         void printCommand();
         void printInformation();
-        void setAltitude(int newAltitude);
+        void setAltitude();
         void addPassanger();
 };
 
