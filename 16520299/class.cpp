@@ -1,18 +1,23 @@
 #include <iostream>
 #include "class.hpp"
 
-Vehicle::Vehicle(int x, int y) { 
+Vehicle::Vehicle(int x, int y) {
     absis = x;
     ordinat = y;
 }
 
 Vehicle::~Vehicle() { 
-    std::cout<<"        ,--.!,  " <<std::endl;
-    std::cout<<"     __/   -*-  " <<std::endl;
-    std::cout<<"    ,d08b. '|`  " <<std::endl;
+    std::cout<<"         ,--.!,  " <<std::endl;
+    std::cout<<"      __/   -*-  " <<std::endl;
+    std::cout<<"    ,d08b.  '|`  " <<std::endl;
     std::cout<<"    0088MM      "<<std::endl;
     std::cout<<"    `9MMP'      " <<std::endl;
-    std::cout<< "Your vehicle has been blown up :D" << std::endl;
+
+    if (vehicleType == "Flying Car") {
+        std::cout << "Actually we have to bomb your vehicle again because the car part is still survive >:(\n" << std::endl;
+    } else {
+        std::cout<< "Your " << vehicleType << " has been blown up :D" << std::endl;
+    }
 }
 
 void Vehicle::setSpeed (){
@@ -396,27 +401,12 @@ void Helicopter::printCommand() {
 // =========================================================================================
 
 FlyingCar::FlyingCar(int x, int y): Car(x,y), FlyingVehicle(x,y) {
-    std::cout << "How many number of seats of your car: "; std::cin >> FlyingVehicle::maxSeats;
-    while (FlyingVehicle::maxSeats < 1) {
-        std::cout << "Your input is invalid, number of seats must be > 1" << std::endl;
-        std::cout << "How many number of seats of your car: "; std::cin >> FlyingVehicle::maxSeats;
-    }
-
-    std::cout<< "        ---------            " << std::endl;
-    std::cout<< "       //  ||\\ \\  /--/     " << std::endl;
-    std::cout<< " -----//___||_\\ \\/__/      " << std::endl;
-    std::cout<< " )  _   \\  \\   _    \\      " << std::endl;
-    std::cout<< " |_/ \\___---__/ \\___|      " << std::endl;
-    std::cout<< "___\\_/--------\\_/______    " << std::endl;
-
-    std::cout<< "Your flying car in (" << FlyingVehicle::absis << "," << FlyingVehicle::ordinat << ") with " << FlyingVehicle::maxSeats << " number of seats has been magically created :D" << std::endl;
-    
     number_of_wheels = 4;
     FlyingVehicle::maxSpeed = 50;
     FlyingVehicle::maxFuel = 2000;
     maxAlti = 5000;
-    FlyingVehicle::lossFuelFormula = "speed * (1.5) * (moveX + moveY) * (0.75 * passanger)";
     FlyingVehicle::vehicleType = "Flying Car";
+    FlyingVehicle::lossFuelFormula = "(speed * (1.5) * (moveX + moveY) * (0.75 * passanger)) * (1 - (altitude/(2 * maxAltitude))";
 }
 
 void FlyingCar::flying(){
@@ -433,6 +423,7 @@ void FlyingCar::landing(){
         std::cout << "You are already on the road" << std::endl;
     } else {
         isFlying = true;
+        altitude = 0;
         std::cout << "Now you are on the road" << std::endl;
     }
 }
@@ -446,10 +437,8 @@ void FlyingCar::printCommand() {
     std::cout << "Input yout choice: ";
 }
 
-double FlyingCar::lossFuel(int moveX, int moveY) { return 0; }
-
-void FlyingCar::printStats(){
-    FlyingVehicle::printStats();
+double FlyingCar::lossFuel(int moveX, int moveY) { 
+    return (FlyingVehicle::speed * (1.5) * (moveX + moveY) * (0.75 * FlyingVehicle::passanger)) * (1 - (altitude/(2*maxAlti)));     
 }
 
 void FlyingCar::setAltitude(){

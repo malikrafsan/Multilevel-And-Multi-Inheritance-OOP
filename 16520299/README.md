@@ -1,4 +1,6 @@
-# Tugas Magang Dagozilla 2021 Day 3
+# Dagozilla 2021 Internship Day 3 Assignment
+
+---
 
 ## Author
 - Nama    : Malik Akbar Hashemi Rafsanjani
@@ -7,7 +9,7 @@
 ---
 
 ## About The Program
-- This program was developed to complete the Dagozilla ITB Day 3 Internship assignment and still in development.
+- This program was developed to complete the Dagozilla ITB Day 3 Internship assignment. This program is about implementing abstract class `Vehicle` with its own attributes and methods. Here, I implement some derived classes, using multilevel-inheritance and multi-inheritance concepts. Here is ilustration about inheritance in my program.
 
 ---
 

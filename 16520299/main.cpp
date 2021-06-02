@@ -2,23 +2,25 @@
 #include "class.hpp"
 
 int main(){
-    int absis, ordinat, altitude;
+    int absis, ordinat, choice;
     double speed;
 
+    std::cout << "Welcome to Simple C++ OOP program\n" << std::endl;
     std::cout << "Please input your position" << std::endl;
     std::cout << "Absis: "; std::cin >> absis;
     std::cout << "Ordinat: "; std::cin >> ordinat;
 
-    int choice;
     std::cout << "\nChoose your vehicle" << std::endl;
     std::cout << "1. Motorcycle" << std::endl;
     std::cout << "2. Car" << std::endl;
     std::cout << "3. Plane" << std::endl;
     std::cout << "4. Helicopter" << std::endl;
+    std::cout << "5. Flying Car" << std::endl;
     std::cout << "\nInput your choice: "; std::cin >> choice;
 
     // Use if-else if because cannot initialize class inside switch
     if (choice == 1){
+        // Object declaration
         Motorcycle bike = Motorcycle(absis,ordinat);
         std::cout << std::endl;
 
@@ -27,7 +29,7 @@ int main(){
             std::cin >> choice;
             
             if (choice == 0) {
-                std::cout << "\nExit the program\n" << std::endl; 
+                std::cout << "\nBefore exit the program :D" << std::endl; 
                 break;
             }
             switch (choice){
@@ -79,7 +81,7 @@ int main(){
             std::cin >> choice;
             
             if (choice == 0) {
-                std::cout << "\nExit the program\n" << std::endl; 
+                std::cout << "\nBefore exit the program :D" << std::endl; 
                 break;
             }
 
@@ -132,7 +134,7 @@ int main(){
             std::cin >> choice;
             
             if (choice == 0) {
-                std::cout << "\nExit the program" << std::endl; 
+                std::cout << "\nBefore exit the program :D" << std::endl; 
                 break;
             }
 
@@ -185,7 +187,7 @@ int main(){
             std::cin >> choice;
             
             if (choice == 0) {
-                std::cout << "\nExit the program" << std::endl; 
+                std::cout << "\nBefore exit the program :D" << std::endl; 
                 break;
             }
 
@@ -238,29 +240,29 @@ int main(){
             std::cin >> choice;
             
             if (choice == 0) {
-                std::cout << "\nExit the program" << std::endl; 
+                std::cout << "\nBefore exit the program :D" << std::endl; 
                 break;
             }
 
             switch (choice){
                 case 1:
-                    myFlyingCar.Car::turnOnEngine();
+                    myFlyingCar.FlyingVehicle::turnOnEngine();
                     break;
 
                 case 2:
-                    myFlyingCar.Car::setSpeed();
+                    myFlyingCar.FlyingVehicle::setSpeed();
                     break;
 
                 case 3:
-                    myFlyingCar.Car::move();
+                    myFlyingCar.FlyingVehicle::move();
                     break;
 
                 case 4:
-                    myFlyingCar.Car::refuel();
+                    myFlyingCar.FlyingVehicle::refuel();
                     break;
 
                 case 5:
-                    myFlyingCar.Car::addPassanger();
+                    myFlyingCar.FlyingVehicle::addPassanger();
                     break;
 
                 case 6:
@@ -268,7 +270,7 @@ int main(){
                     break;
 
                 case 7:
-                    myFlyingCar.printStats();
+                    myFlyingCar.FlyingVehicle::printStats();
                     break;
 
                 case 8:
@@ -293,6 +295,7 @@ int main(){
             }
             std::cout <<"\n===================\n" << std::endl;
         } while (true);
+
     } else {
         wrongInput();
         std::cout << std::endl;
