@@ -11,7 +11,7 @@
 ## About The Program
 - This program was developed to complete the Dagozilla ITB Day 3 Internship assignment. This program is about implementing abstract class `Vehicle` with its own attributes and methods. Here, I implement some derived classes, using multilevel-inheritance and multi-inheritance concepts. Here is ilustration about inheritance in my program.
 
-![Class illustration](./image/testing.png?raw=true "Class illustration")
+![Class illustration](./image/illustration.png?raw=true "Class illustration")
 
 ---
 
