@@ -120,7 +120,7 @@ class Car: public LandVehicle {
         
         void useNOS();
         // I.S. usingNOS is defined
-        // F.S. usingNOS value is assigned to true 
+        // F.S. usingNOS value is assigned to true and maxSpeed *= 1.5
 
         double lossFuel(int moveX, int moveY);
         // Return lossFuel according to how far Car go (moveX, moveY), speed, and passanger
@@ -231,6 +231,8 @@ class FlyingCar: public Car, public FlyingVehicle {
         // F.S. altitude value is assigned according to user's input
 
         void useNOS();
+        // I.S. usingNOS is defined
+        // F.S. usingNOS value is assigned to true and maxSpeed *= 1.5
 
         double lossFuel(int moveX, int moveY);
         // Return lossFuel according to how far Plane go (moveX, moveY), speed, passanger, and altitude, also maxAlti
