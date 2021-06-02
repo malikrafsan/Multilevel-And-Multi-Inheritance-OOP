@@ -213,7 +213,66 @@ int main(){
             std::cout <<"\n===================\n" << std::endl;
         } while (true);
         
-    } else {
+    } else if (choice == 5) {
+        FlyingCar myFlyingCar = FlyingCar(absis, ordinat);
+        std::cout << std::endl;
+
+        do {
+            myFlyingCar.printCommand();
+            std::cin >> choice;
+            
+            if (choice == 0) {
+                std::cout << "\nExit the program" << std::endl; 
+                break;
+            }
+
+            switch (choice){
+                case 1:
+                    myFlyingCar.Car::turnOnEngine();
+                    break;
+
+                case 2:
+                    myFlyingCar.Car::setSpeed();
+                    break;
+
+                case 3:
+                    myFlyingCar.Car::move();
+                    break;
+
+                case 4:
+                    myFlyingCar.Car::refuel();
+                    break;
+
+                case 5:
+                    myFlyingCar.Car::addPassanger();
+                    break;
+
+                case 6:
+                    myFlyingCar.FlyingVehicle::printInformation();
+                    break;
+
+                case 7:
+                    myFlyingCar.setAltitude();
+                    break;
+
+                case 8:
+                    myFlyingCar.flying();
+                    break;
+
+                case 9:
+                    myFlyingCar.landing();
+                    break;
+
+                default:
+                    wrongInput();
+                    break;
+            }
+            std::cout <<"\n===================\n" << std::endl;
+        } while (true);
+    }
+    
+    
+    else {
         wrongInput();
         std::cout << std::endl;
         main();
