@@ -46,7 +46,7 @@ class Vehicle {
         // F.S. fuelCapacity is assigned by maxFuel value
 
         void printStats();
-        // I.S. vehicleType, lossFuelFormula, maxFuel, maxSpeed are defined
+        // I.S. vehicleType, lossFuelFormula, maxFuel, maxSpeed, maxSeats are defined
         // F.S. Statistics about the vehicle are displayed on the screen
 
         // Virtual methods
@@ -229,6 +229,8 @@ class FlyingCar: public Car, public FlyingVehicle {
         void setAltitude();
         // I.S. isFlying and FlyingVehicle::setAltitude() are defined
         // F.S. altitude value is assigned according to user's input
+
+        void useNOS();
 
         double lossFuel(int moveX, int moveY);
         // Return lossFuel according to how far Plane go (moveX, moveY), speed, passanger, and altitude, also maxAlti

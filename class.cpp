@@ -147,7 +147,7 @@ void Vehicle::printStats() {
     // Display basic statistics of the vehicle
     std::cout << "> " << vehicleType << " Statistics <" << std::endl;
     std::cout << "1. LossFuel : " << lossFuelFormula << std::endl;
-    std::cout << "2. Maximum number of seats : 2" << std::endl;
+    std::cout << "2. Maximum number of seats : " << maxSeats << std::endl;
     std::cout << "3. Maximum fuel capacity : " << maxFuel << std::endl;
     std::cout << "4. Maximum speed: " << maxSpeed << std::endl;
 }
@@ -262,7 +262,7 @@ Car::Car(int x, int y): LandVehicle(x,y) {
     // Asking user input
     std::cout << "How many number of seats of your car: "; std::cin >> maxSeats;
     while (maxSeats < 1) {
-        std::cout << "Your input is invalid, number of seats must be > 1" << std::endl;
+        std::cout << "Your input is invalid, number of seats must be > 0" << std::endl;
         std::cout << "How many number of seats of your car: "; std::cin >> maxSeats;
     }
 
@@ -309,6 +309,7 @@ void Car::useNOS() {
     } else {
         usingNOS = true;
         maxSpeed = 1.5 * maxSpeed;
+        std::cout << "Your maximum speed now is " << maxSpeed << std::endl;
     }
 }
 
@@ -432,7 +433,6 @@ Plane::Plane(int x, int y): FlyingVehicle(x,y) {
         std::cout << "Please input your number of engines: "; std::cin >> number_of_engine;
         if (number_of_engine <= 1) {
             std::cout << "Number of engine must be > 1\n" << std::endl;
-            std::cout << "Please input your number of engines: "; std::cin >> number_of_engine;
         } else {
             break;
         }
@@ -506,7 +506,6 @@ Helicopter::Helicopter(int x, int y): FlyingVehicle(x,y) {
         // Invalid input case
         if (number_of_blade <= 0) {
             std::cout << "Number of engine must be > 0\n" << std::endl;
-            std::cout << "Please input your number of blades: "; std::cin >> number_of_blade;
         } 
         // Valid input case
         else {
@@ -527,6 +526,7 @@ Helicopter::Helicopter(int x, int y): FlyingVehicle(x,y) {
     maxSpeed = 40;
     maxFuel = 5000;
     maxAlti = 4000;
+    maxSeats = 4;
     lossFuelFormula = "2 * speed * (moveX + moveY) * (0.5 * passanger) * ((25.000 - altitude) / 10.000)";
     vehicleType = "Helicopter";
 }
@@ -554,6 +554,7 @@ FlyingCar::FlyingCar(int x, int y): Car(x,y), FlyingVehicle(x,y) {
 
     // ALGORITHM
     // Define attributes' value
+    FlyingVehicle::maxSeats = Car::maxSeats;
     number_of_wheels = 4;
     FlyingVehicle::maxSpeed = 50;
     FlyingVehicle::maxFuel = 2000;
@@ -612,6 +613,18 @@ void FlyingCar::setAltitude(){
         FlyingVehicle::setAltitude();
     } else {
         std::cout << "You must start flying first" << std::endl;
+    }
+}
+
+void FlyingCar::useNOS() {
+    // ALGORITHM
+    // Check whether the Car is already using NOS
+    if (usingNOS) {
+        std::cout << "You are already using NOS" << std::endl;
+    } else {
+        usingNOS = true;
+        FlyingVehicle::maxSpeed = FlyingVehicle::maxSpeed * 1.5;
+        std::cout << "Your maximum speed now is " << FlyingVehicle::maxSpeed << std::endl;
     }
 }
 
