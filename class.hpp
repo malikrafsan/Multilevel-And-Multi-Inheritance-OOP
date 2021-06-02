@@ -18,10 +18,10 @@ class Vehicle {
         void addPassanger();
         void printInformation();
         void refuel();
+        void printStats();
 
         virtual void printCommand();
         virtual double lossFuel(int moveX, int moveY) = 0;
-        virtual void printStats() = 0;
 };
 
 class LandVehicle: public Vehicle {
@@ -40,7 +40,6 @@ class Motorcycle: public LandVehicle {
         Motorcycle(int x, int y);
         void addExternalHelmStorage();
         double lossFuel(int moveX, int moveY);
-        void printStats();
         void printCommand();
         void printInformation();
         void addPassanger();
@@ -53,7 +52,6 @@ class Car: public LandVehicle {
     public:
         Car(int x, int y);
         double lossFuel(int moveX, int moveY);
-        void printStats();
         void printCommand();
         void useNOS();
 };
