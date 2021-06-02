@@ -56,6 +56,10 @@ int main(){
                     break;
 
                 case 7:
+                    bike.printStats();
+                    break;
+
+                case 8:
                     bike.addExternalHelmStorage();
                     break;
 
@@ -105,6 +109,10 @@ int main(){
                     break;
 
                 case 7:
+                    myCar.printStats();
+                    break;
+
+                case 8:
                     myCar.useNOS();
                     break;
 
@@ -154,6 +162,10 @@ int main(){
                     break;
 
                 case 7:
+                    myPlane.printStats();
+                    break;
+
+                case 8:
                     myPlane.setAltitude();
                     break;
 
@@ -203,6 +215,10 @@ int main(){
                     break;
 
                 case 7:
+                    myHeli.printStats();
+                    break;
+
+                case 8:
                     myHeli.setAltitude();
                     break;
 
@@ -252,15 +268,23 @@ int main(){
                     break;
 
                 case 7:
-                    myFlyingCar.setAltitude();
+                    myFlyingCar.printStats();
                     break;
 
                 case 8:
-                    myFlyingCar.flying();
+                    myFlyingCar.setAltitude();
                     break;
 
                 case 9:
+                    myFlyingCar.flying();
+                    break;
+
+                case 10:
                     myFlyingCar.landing();
+                    break;
+
+                case 11:
+                    myFlyingCar.useNOS();
                     break;
 
                 default:
