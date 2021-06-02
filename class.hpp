@@ -6,7 +6,7 @@ class Vehicle {
         double fuelCapacity = 0, maxFuel;
         bool isEngineOn = false;
         double speed = 0, maxSpeed;
-        std::string lossFuelFormula;
+        std::string lossFuelFormula, vehicleType;
 
     public:
         Vehicle(int x, int y);
@@ -47,6 +47,9 @@ class Motorcycle: public LandVehicle {
 };
 
 class Car: public LandVehicle {
+    protected:
+        bool usingNOS=false;
+
     public:
         Car(int x, int y);
         double lossFuel(int moveX, int moveY);
@@ -62,9 +65,10 @@ class FlyingVehicle: public Vehicle {
     public:
         FlyingVehicle(int x, int y);
         void printCommand();
-        virtual void setAltitude() = 0;
+        void setAltitude();
         void printInformation();
         void move();
+        void printStats();
 };
 
 class Plane: public FlyingVehicle {
@@ -75,9 +79,7 @@ class Plane: public FlyingVehicle {
     public:
         Plane(int x, int y);
         double lossFuel(int moveX, int moveY);
-        void printStats();
         void printCommand();
-        void setAltitude();
         void addPassanger();
 };
 
@@ -88,8 +90,6 @@ class Helicopter: public FlyingVehicle {
     public:
         Helicopter(int x, int y);
         double lossFuel(int moveX, int moveY);
-        void printStats();
-        void setAltitude();
         void printCommand();
 };
 

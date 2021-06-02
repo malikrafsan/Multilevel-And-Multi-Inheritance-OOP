@@ -84,12 +84,14 @@ void Vehicle::addPassanger() {
 }
 
 void Vehicle::printCommand() {
+    std::cout << "> " << vehicleType << " Commands" << std::endl;
     std::cout << "1. Turn on engine" << std::endl;
     std::cout << "2. Set speed" << std::endl;
     std::cout << "3. Move" << std::endl;
     std::cout << "4. Refuel" << std::endl;
     std::cout << "5. Add passanger" << std::endl;
     std::cout << "6. Display information" << std::endl;
+    std::cout << "7. Display vehicle statistics" << std::endl;
 }
 
 void Vehicle::printInformation() {
@@ -102,6 +104,7 @@ void Vehicle::printInformation() {
 }
 
 void Vehicle::printStats() {
+    std::cout << "> " << vehicleType << " Statistics <" << std::endl;
     std::cout << "1. LossFuel : " << lossFuelFormula << std::endl;
     std::cout << "2. Maximum number of seats : 2" << std::endl;
     std::cout << "3. Maximum fuel capacity : " << maxFuel << std::endl;
@@ -141,6 +144,7 @@ Motorcycle::Motorcycle(int x, int y): LandVehicle(x,y) {
     maxSpeed = 10;
     maxFuel = 500;
     lossFuelFormula = "0.5 * (speed*moveX + speed*moveY) * passanger";
+    vehicleType = "Motorcycle";
 }
 
 void Motorcycle::addExternalHelmStorage(){
@@ -162,9 +166,8 @@ void Motorcycle::printStats(){
 }
 
 void Motorcycle::printCommand(){
-    std::cout << "> Motorcycle Commands" << std::endl;
     Vehicle::printCommand();
-    std::cout << "7. Add external helm storage" << std::endl;
+    std::cout << "8. Add external helm storage" << std::endl;
     std::cout << "0. Stop riding\n" << std::endl;
     std::cout << "Input yout choice: ";
 }
@@ -196,6 +199,7 @@ Car::Car(int x, int y): LandVehicle(x,y) {
     maxSpeed = 20;
     maxFuel = 2000;
     lossFuelFormula = "speed * (1.5) * (moveX + moveY) * (0.75 * passanger)";
+    vehicleType = "Car";
 }
 
 double Car::lossFuel(int moveX, int moveY) { 
@@ -203,20 +207,23 @@ double Car::lossFuel(int moveX, int moveY) {
 }
 
 void Car::printStats() {
-    std::cout << "> Car Statistics <" << std::endl;
     Vehicle::printStats();
 }
 
 void Car::printCommand() {
-    std::cout << "> Car Commands <" << std::endl;
     Vehicle::printCommand();
-    std::cout << "7. Use NOS (increase max speed)" << std::endl;
+    std::cout << "8. Use NOS (increase max speed)" << std::endl;
     std::cout << "0. Stop driving\n" << std::endl;
     std::cout << "Input yout choice: ";
 }
 
 void Car::useNOS() {
-    maxSpeed = 30;
+    if (usingNOS) {
+        std::cout << "You are already using NOS" << std::endl;
+    } else {
+        usingNOS = true;
+        maxSpeed = 1.5 * maxSpeed;
+    }
 }
 
 // =========================================================================================
@@ -225,7 +232,7 @@ FlyingVehicle::FlyingVehicle(int x, int y): Vehicle(x,y) {}
 
 void FlyingVehicle::printCommand() {
     Vehicle::printCommand();
-    std::cout << "7. Set your flying height" << std::endl;
+    std::cout << "8. Set your flying height" << std::endl;
 }
 
 void FlyingVehicle::printInformation() {
@@ -238,6 +245,23 @@ void FlyingVehicle::move() {
         std::cout << "Your altitude must be > 0 first to move" << std::endl;
     } else {
         Vehicle::move();
+    }
+}
+
+void FlyingVehicle::printStats() {
+    Vehicle::printStats();
+    std::cout << "5. Maximum altitude: " << maxAlti << std::endl;
+}
+
+void FlyingVehicle::setAltitude() {
+    int newAltitude;
+    std::cout << "New altitude: "; std::cin >> newAltitude;
+
+    if (newAltitude >= 0 && newAltitude <= maxAlti) {
+        altitude = newAltitude;
+        std::cout << "Your current altitude is " << newAltitude << std::endl;
+    } else {
+        std::cout << vehicleType << " altitude must be >= 0 and <= " << maxAlti << std::endl;
     }
 }
 
@@ -296,35 +320,17 @@ Plane::Plane(int x, int y): FlyingVehicle(x,y) {
     maxAlti = 20000;
     maxSpeed = 100;
     lossFuelFormula = "2 * speed * (moveX + moveY) * (0.5 * passanger) * ((25.000 - altitude) / 10.000)";
+    vehicleType = "Plane";
 }
 
 void Plane::printCommand() {
-    std::cout << "> Plane Commands <" << std::endl;
     FlyingVehicle::printCommand();
     std::cout << "0. Stop flying\n" << std::endl;
     std::cout << "Input yout choice: ";
 }
 
-void Plane::setAltitude() {
-    int newAltitude;
-    std::cout << "New altitude: "; std::cin >> newAltitude;
-
-    if (newAltitude >= 0 && newAltitude <= maxAlti) {
-        altitude = newAltitude;
-        std::cout << "Your current altitude is " << newAltitude << std::endl;
-    } else {
-        std::cout << "Plane altitude must be >= 0 and <= " << maxAlti << std::endl;
-    }
-}
-
 double Plane::lossFuel(int moveX, int moveY) { 
     return 2 * speed * (moveX + moveY) * (1+ 0.1*passanger) * ((25000 - altitude) / 10000);
-}
-
-void Plane::printStats() {
-    std::cout << "> Plane Statistics <" << std::endl;
-    Vehicle::printStats();
-    std::cout << "5. Maximum altitude: " << maxAlti << std::endl;
 }
 
 void Plane::addPassanger() {
@@ -360,32 +366,14 @@ Helicopter::Helicopter(int x, int y): FlyingVehicle(x,y) {
     maxFuel = 5000;
     maxAlti = 4000;
     lossFuelFormula = "2 * speed * (moveX + moveY) * (0.5 * passanger) * ((25.000 - altitude) / 10.000)";
-}
-
-void Helicopter::setAltitude() {
-    int newAltitude;
-    std::cout << "New altitude: "; std::cin >> newAltitude;
-
-    if (newAltitude < 0 and newAltitude < maxAlti) {
-        altitude = newAltitude;
-        std::cout << "Your current altitude is " << newAltitude << std::endl;
-    } else {
-        std::cout << "Plane altitude must be >= 0 and <= " << maxAlti << std::endl;
-    }
+    vehicleType = "Helicopter";
 }
 
 double Helicopter::lossFuel(int moveX, int moveY) { 
     return (speed * (1.75) * (moveX + moveY) * (1 + passanger) + (5000 - altitude)/1000); 
 }
 
-void Helicopter::printStats() {
-    std::cout << "> Helicopter Statistics <" << std::endl;
-    Vehicle::printStats();
-    std::cout << "5. Maximum altitude: " << maxAlti << std::endl;
-}
-
 void Helicopter::printCommand() {
-    std::cout << "> Helicopter Commands <" << std::endl;
     FlyingVehicle::printCommand();
     std::cout << "0. Stop flying\n" << std::endl;
     std::cout << "Input yout choice: ";
@@ -402,10 +390,11 @@ FlyingCar::FlyingCar(int x, int y): Car(x,y), FlyingVehicle(x,y) {
     std::cout<< "Your car in (" << FlyingVehicle::absis << "," << FlyingVehicle::ordinat << ") with " << FlyingVehicle::maxSeats << " number of seats has been magically created :D" << std::endl;
     
     number_of_wheels = 4;
-    FlyingVehicle::maxSpeed = 20;
+    FlyingVehicle::maxSpeed = 50;
     FlyingVehicle::maxFuel = 2000;
     maxAlti = 5000;
     FlyingVehicle::lossFuelFormula = "speed * (1.5) * (moveX + moveY) * (0.75 * passanger)";
+    FlyingVehicle::vehicleType = "Flying Car";
 }
 
 void FlyingCar::flying(){
@@ -428,14 +417,25 @@ void FlyingCar::landing(){
 
 void FlyingCar::printCommand() {
     FlyingVehicle::printCommand();
-
-}
-
-void FlyingCar::printCommand() {
-    std::cout << "> Flying Car Commands <" << std::endl;
-    FlyingVehicle::printCommand();
+    std::cout << "9. Start flying" << std::endl;
+    std::cout << "10. Use land road" << std::endl;
+    std::cout << "11. Use NOS" << std::endl;
     std::cout << "0. Stop travelling\n" << std::endl;
     std::cout << "Input yout choice: ";
+}
+
+double FlyingCar::lossFuel(int moveX, int moveY) { return 0; }
+
+void FlyingCar::printStats(){
+    FlyingVehicle::printStats();
+}
+
+void FlyingCar::setAltitude(){
+    if (isFlying) {
+        FlyingVehicle::setAltitude();
+    } else {
+        std::cout << "You must start flying first" << std::endl;
+    }
 }
 
 // =========================================================================================
