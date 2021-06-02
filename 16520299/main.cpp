@@ -293,10 +293,7 @@ int main(){
             }
             std::cout <<"\n===================\n" << std::endl;
         } while (true);
-    }
-    
-    
-    else {
+    } else {
         wrongInput();
         std::cout << std::endl;
         main();

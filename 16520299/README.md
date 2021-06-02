@@ -25,3 +25,6 @@ g++ main.cpp class.cpp -o main
 
 ## References
 - [Dagozilla Encyclopedia of C++](https://github.com/dagozilla/encyclopedia/tree/main/cpp)
+- [GeeksForGeeks OOP in C++](https://www.geeksforgeeks.org/object-oriented-programming-in-cpp/)
+- [W3school C++ OOP](https://www.w3schools.com/cpp/cpp_oop.asp)
+- [Kelas Terbuka - Belajar C++ OOP](https://www.youtube.com/watch?v=ZYBkuY1eiZ4&list=PLZS-MHyEIRo7-RC_-hkL9gu0_ofABw862)
