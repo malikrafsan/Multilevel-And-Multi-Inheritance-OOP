@@ -1,15 +1,8 @@
-# Dagozilla 2021 Internship Day 3 Assignment
-
+# Multilevel and Multi Inheritance OOP Program
 ---
 
-## Author
-- Nama    : Malik Akbar Hashemi Rafsanjani
-- NIM     : 16520299
-
----
-
-## About The Program
-- This program was developed to complete the Dagozilla ITB Day 3 Internship assignment. This program is about implementing abstract class `Vehicle` with its own attributes and methods. Here, I implement some derived classes, using multilevel-inheritance and multi-inheritance concepts. Here is ilustration about inheritance in my program.
+## Description 
+- This program is about implementing abstract class `Vehicle` with its own attributes and methods. Here, I implement some derived classes, using multilevel-inheritance and multi-inheritance concepts. I also implementing interactive command line interface so that the users can choose and play with their vehicle. Here is ilustration about inheritance in my program.
 
 ![Class illustration](./image/illustration.png?raw=true "Class illustration")
 
@@ -24,6 +17,11 @@ g++ main.cpp class.cpp -o main
 ./main
 ```
 - Enjoy the program! :D
+---
+
+## Author
+- Nama    : Malik Akbar Hashemi Rafsanjani
+- NIM     : 16520299
 
 --- 
 
